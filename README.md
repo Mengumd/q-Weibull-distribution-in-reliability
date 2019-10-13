@@ -1,0 +1,1 @@
+# q-Weibull-distribution-in-reliability
