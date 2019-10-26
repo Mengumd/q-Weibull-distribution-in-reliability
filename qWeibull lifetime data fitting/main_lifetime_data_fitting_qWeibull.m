@@ -10,7 +10,7 @@ solMean = mean(sol);
 solStd = std(sol);
 
 
-save Example_Result;
+save Example_Result_2;
 
 q = solMean(1);
 beta = solMean(2);
