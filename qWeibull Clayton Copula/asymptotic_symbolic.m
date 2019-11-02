@@ -32,55 +32,61 @@ for ii = 1:length(t)
 end
 
 loglik = sum(loglik_vector) + ((2-q)/(1-q))*log(1-(1-q)*(t(end)/eta)^beta);
-
-q_loglik = diff(loglik, q, 2);
-
-beta_loglik = diff(loglik, beta, 2);
-
-eta_loglik = diff(loglik, eta, 2);
-
-q_beta_loglik = diff(loglik, q, beta);
-
-beta_eta_loglik = diff(loglik, beta, eta);
-
-eta_q_loglik = diff(loglik, q, eta);
-
+I=hessian(loglik,[q,beta,eta]);
 q = sol(1);
 beta = sol(1,2);
 eta = sol(1,3);
+I = subs(I);
+I = eval(I);
 
-q_loglik = subs(q_loglik);
-
-beta_loglik = subs(beta_loglik);
-
-eta_loglik = subs(eta_loglik);
-
-q_beta_loglik = subs(q_beta_loglik);
-
-beta_eta_loglik = subs(beta_eta_loglik);
-
-eta_q_loglik = subs(eta_q_loglik);
-
-I(1,1) = q_loglik;
-I(2,2) = beta_loglik;
-I(3,3) = eta_loglik;
-I(1,2) = q_beta_loglik;
-I(2,1) = q_beta_loglik;
-I(1,3) = eta_q_loglik;
-I(3,1) = eta_q_loglik;
-I(2,3) = beta_eta_loglik;
-I(3,2) = beta_eta_loglik;
+% q_loglik = diff(loglik, q, 2);
+% 
+% beta_loglik = diff(loglik, beta, 2);
+% 
+% eta_loglik = diff(loglik, eta, 2);
+% 
+% q_beta_loglik = diff(loglik, q, beta);
+% 
+% beta_eta_loglik = diff(loglik, beta, eta);
+% 
+% eta_q_loglik = diff(loglik, q, eta);
+% 
+% q = sol(1);
+% beta = sol(1,2);
+% eta = sol(1,3);
+% 
+% q_loglik = subs(q_loglik);
+% 
+% beta_loglik = subs(beta_loglik);
+% 
+% eta_loglik = subs(eta_loglik);
+% 
+% q_beta_loglik = subs(q_beta_loglik);
+% 
+% beta_eta_loglik = subs(beta_eta_loglik);
+% 
+% eta_q_loglik = subs(eta_q_loglik);
+% 
+% I(1,1) = q_loglik;
+% I(2,2) = beta_loglik;
+% I(3,3) = eta_loglik;
+% I(1,2) = q_beta_loglik;
+% I(2,1) = q_beta_loglik;
+% I(1,3) = eta_q_loglik;
+% I(3,1) = eta_q_loglik;
+% I(2,3) = beta_eta_loglik;
+% I(3,2) = beta_eta_loglik;
 
 var = -I^(-1);
 var_q = var(1,1);
 var_beta = var(2,2);
 var_eta = var(3,3);
 
-% Z1 = -1.64;
-% Z2 = 1.64;
+Z1 = -1.64;
+Z2 = 1.64;
 
-Z1 = -1.036;
-Z2 = 1.036;
+% Z1 = -1.036;
+% Z2 = 1.036;
 
 
 
